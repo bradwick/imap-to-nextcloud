@@ -22,9 +22,9 @@ def download_attachments():
             subject = message.get('Subject')
             print(subject)
             if '***REMOVED***' in subject:
-                path = config['BASEPATH'] + 'Photos/'
+                path = config['BASEPATH'] + '/Photos/'
             elif '***REMOVED***' in subject:
-                path = config['BASEPATH'] + 'Photos (***REMOVED***)/'
+                path = config['BASEPATH'] + '/Photos (***REMOVED***)/'
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())+'.jpg'
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
