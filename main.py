@@ -12,7 +12,7 @@ def download_attachments():
 
         resp_code, mail_count = imap_ssl.select(mailbox='Inbox')
 
-        resp_code, mails = imap_ssl.search(None, '(SUBJECT "text message")')
+        resp_code, mails = imap_ssl.search(None, '(SUBJECT "text message") UNSEEN')
 
         for mail_id in mails[0].decode().split()[-2:]:
             resp_code, mail_data = imap_ssl.fetch(mail_id, '(RFC822)')
