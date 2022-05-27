@@ -27,7 +27,7 @@ def download_attachments():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())+'.jpg'
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
                     open(path + filename, 'wb').write(part.get_payload(decode=True))
-            imap_ssl.copy(mail_id, 'Processed Photos')
+            imap_ssl.copy(mail_id, 'Processed_Photos')
             imap_ssl.store(mail_id, '+FLAGS', '\Deleted')
 
 
