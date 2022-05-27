@@ -6,7 +6,7 @@ from datetime import datetime
 from dotenv import dotenv_values
 
 def download_attachments():
-    config = dotenv_values('.env')
+    config = dotenv_values('/usr/local/sbin/imap-to-nextcloud/.env')
     with imaplib.IMAP4_SSL(host=config['HOST'], port=993) as imap_ssl:
         resp_code, response = imap_ssl.login(config['EMAIL'], config['PASSWORD'])
 
