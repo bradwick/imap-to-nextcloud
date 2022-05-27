@@ -1,7 +1,7 @@
 #check mailbox for images and drop them into nextcloud
 import imaplib
 import email
-import datetime
+from datetime import datetime
 
 from dotenv import dotenv_values
 
