@@ -28,12 +28,12 @@ def download_attachments():
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())+'.jpg'
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
-                    add_to_nextcloud(config, part, user, path+filename)
+                    add_to_nextcloud(config, part, path+filename)
             imap_ssl.copy(mail_id, 'Processed_Photos')
             imap_ssl.store(mail_id, '+FLAGS', '\Deleted')
 
 
-def add_to_nextcloud(config, part, user, filename):
+def add_to_nextcloud(config, part, filename):
     nc = nextcloud_client.Client(config['NEXTCLOUD_DOMAIN'])
 
     nc.login(config['NEXTCLOUD_USER'], config['NEXTCLOUD_PASSWORD'])
