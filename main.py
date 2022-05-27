@@ -22,13 +22,13 @@ def download_attachments():
             subject = message.get('Subject')
             print(subject)
             if '***REMOVED***' in subject:
-                path = config['BASEPATH'] + '/Photos/Phone_Uploads/'
+                path = config['BASEPATH'] + 'Photos/Phone_Uploads/'
             elif '***REMOVED***' in subject:
-                path = config['BASEPATH'] + '/Photos (***REMOVED***)/Phone_Uploads/'
+                path = config['BASEPATH'] + 'Photos (***REMOVED***)/Phone_Uploads/'
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())+'.jpg'
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
-                    add_to_nextcloud(config, part, filename)
+                    add_to_nextcloud(config, part, path+filename)
             imap_ssl.copy(mail_id, 'Processed_Photos')
             imap_ssl.store(mail_id, '+FLAGS', '\Deleted')
 
