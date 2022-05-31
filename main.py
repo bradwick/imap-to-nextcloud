@@ -22,9 +22,9 @@ def download_attachments():
             subject = message.get('Subject')
             print(subject)
             if '***REMOVED***' in subject:
-                path = config['BASEPATH'] + '/Photos/'
+                path = '/Photos/'
             elif '***REMOVED***' in subject:
-                path = config['BASEPATH'] + '/Photos (***REMOVED***)/'
+                path = '/Photos (***REMOVED***)/'
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())+'.jpg'
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
@@ -37,8 +37,6 @@ def add_to_nextcloud(config, part, filename):
     nc = nextcloud_client.Client(config['NEXTCLOUD_DOMAIN'])
 
     nc.login(config['NEXTCLOUD_USER'], config['NEXTCLOUD_PASSWORD'])
-
-    nc.mkdir('TEST')
 
     nc.put_file_contents(filename, part.get_payload(decode=True))
 
