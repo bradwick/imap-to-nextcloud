@@ -38,6 +38,8 @@ def add_to_nextcloud(config, part, filename):
 
     nc.login(config['NEXTCLOUD_USER'], config['NEXTCLOUD_PASSWORD'])
 
+    nc.mkdir('TEST')
+
     nc.put_file_contents(filename, part.get_payload(decode=True))
 
 
