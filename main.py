@@ -21,9 +21,10 @@ def download_attachments():
             message = email.message_from_bytes(mail_data[0][1])
             subject = message.get('Subject')
             print(subject)
-            if config['MY_USER'] in subject:
+            if (config['MY_USER'] in subject):
                 path = '/Photos/Phone_Uploads/'
-            elif config['OTHER_USER'] in subject:
+            elif (config['OTHER_USER'] in subject):
+
                 path = f'/Photos ({config["OTHER_USER"]})/Phone_Uploads/'
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())
