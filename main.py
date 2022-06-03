@@ -21,10 +21,10 @@ def download_attachments():
             message = email.message_from_bytes(mail_data[0][1])
             subject = message.get('Subject')
             print(subject)
-            if '***REMOVED***' in subject:
+            if config['MY_USER'] in subject:
                 path = '/Photos/Phone_Uploads/'
-            elif '***REMOVED***' in subject:
-                path = '/Photos (***REMOVED***)/Phone_Uploads/'
+            elif config['OTHER_USER'] in subject:
+                path = f'/Photos ({config["OTHER_USER"]})/Phone_Uploads/'
             for part in message.walk():
                 filename = part.get_filename() if part.get_filename() else str(datetime.now())
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
