@@ -3,6 +3,8 @@ import imaplib
 import email
 from datetime import datetime
 
+import requests
+
 from dotenv import dotenv_values
 
 import nextcloud_client
@@ -30,6 +32,7 @@ def download_attachments():
                 if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
                     filename = filename +'.'+ part.get_content_subtype()
                     add_to_nextcloud(config, part, path+filename)
+                    add_to_photoprism(config, part, filename)
             imap_ssl.copy(mail_id, 'Processed_Photos')
             imap_ssl.store(mail_id, '+FLAGS', '\Deleted')
 
@@ -41,7 +44,10 @@ def add_to_nextcloud(config, part, filename):
 
     nc.put_file_contents(filename, part.get_payload(decode=True))
 
-
+def add_to_photoprism(config, part, filename):
+    full_filename = config['PHOTOPRISM_PATH'] + filename
+    with open(full_filename) as file:
+        file.write(part.get_payload(decode=True))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
